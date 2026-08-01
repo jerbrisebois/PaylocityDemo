@@ -22,6 +22,7 @@ Automated UI and API test suites for the Benefits Dashboard, built with Python, 
 3. Install dependencies
 
 `pip install -r requirements.txt`
+
 `playwright install`
 
 4. .env configuration - Copy/paste the `.env.example` to `.env` and fill in credentials
@@ -45,16 +46,23 @@ Run single test example: `pytest tests/ui/test_dashboard.py::test_add_employee`
 ### UI
 
 test_add_employee - Add an employee and verify it exists
+
 test_edit_employee_lastname - Edit an employee's last name and verify it's been updated
+
 test_edit_employee_data - Edit an employee's first and last name and depentents and verify it's been updated
+
 test_delete_employee - Delete an employee and verify it has been removed
+
 
 
 ### API
 
 test_add_employee_api - Send a POST to /api/Employees to create a new employee and verify it is created
+
 test_edit_employee_lastname_api - Send a PUT to /api/Employees to edit an existing employee's last name and verify it's been updated
+
 test_edit_employee_data_api - Send a PUT to /api/Employees to edit an employee's first and last name and depentents and verify it's been updated
+
 test_delete_employee_api - Send a DEL to /api/Employees/{id} to delete an employee and verify it has been removed
 
 
