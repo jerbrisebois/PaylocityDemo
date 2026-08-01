@@ -42,6 +42,7 @@ Run single test example: `pytest tests/ui/test_dashboard.py::test_add_employee`
 
 To generate a report.html after the tests are done, add `--html=report.html --self-contained-html` (ex: `pytest --html=report.html --self-contained-html`)
 
+For more verbose output, add `-v`
 
 
 ## List of tests
