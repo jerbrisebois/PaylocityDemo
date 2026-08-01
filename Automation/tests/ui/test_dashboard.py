@@ -1,4 +1,5 @@
 import uuid
+import pytest
 from playwright.sync_api import Page, expect
 from conftest import add_employee, delete_employee
 
@@ -45,5 +46,13 @@ def test_delete_employee(page: Page, existing_employee):
 
     expect(row).to_have_count(0)
 
-def test_benefit_cost(page: Page, existing_employee):
-    hi = 1
+@pytest.mark.parametrize("dependants", [0, 4, 32])
+def test_benefits_cost(page: Page, dependants):
+    employee = add_employee(page, dependants)
+    try:
+        expected_cost = (1000 + (500 * dependants)) / 26
+        row = page.locator("#employeesTable tr", has_text=employee["id"])
+        benefits_cost_cell = row.locator("td").nth(6)
+        expect(benefits_cost_cell).to_have_text(f"{expected_cost:.2f}")
+    finally:
+        delete_employee(page, employee)

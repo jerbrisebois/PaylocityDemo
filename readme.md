@@ -40,6 +40,9 @@ Run only API tests with `pytest tests/api`
 
 Run single test example: `pytest tests/ui/test_dashboard.py::test_add_employee`
 
+To generate a report.html after the tests are done, add `--html=report.html --self-contained-html` (ex: `pytest --html=report.html --self-contained-html`)
+
+
 
 ## List of tests
 
@@ -65,6 +68,7 @@ test_edit_employee_data_api - Send a PUT to /api/Employees to edit an employee's
 
 test_delete_employee_api - Send a DEL to /api/Employees/{id} to delete an employee and verify it has been removed
 
+test_benefits_cost_api - Send a POST to /api/Employees with 3 different dependent amounts, verifying the benefit cost calculation for each
 
 ## Design Notes
 

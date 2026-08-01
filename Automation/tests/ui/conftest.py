@@ -48,14 +48,14 @@ def existing_employee(page: Page):
     yield employee
     delete_employee(page, employee)
 
-def add_employee(page: Page) -> dict:
+def add_employee(page: Page, dependants: str = "0") -> dict:
     first_name = f"Test{uuid.uuid4().hex[:8]}"
     last_name = f"User{uuid.uuid4().hex[:8]}"
 
     page.get_by_role("button", name="Add Employee").click()
     page.locator("#firstName").fill(first_name)
     page.locator("#lastName").fill(last_name)
-    page.locator("#dependants").fill("0")
+    page.locator("#dependants").fill(str(dependants))
     page.locator("#addEmployee").click()
 
     row = page.locator("#employeesTable tr", has_text=first_name)

@@ -42,13 +42,14 @@ def test_edit_employee_lastname_api(api_request_context, existing_employee):
 def test_edit_employee_data_api(api_request_context, existing_employee):
     new_first_name = f"User{uuid.uuid4().hex[:8]}"
     new_last_name = f"User{uuid.uuid4().hex[:8]}"
+    new_dependants = 1
 
     payload = {
         "id": existing_employee["id"],
         "firstName": new_first_name,
         "lastName": new_last_name,
         "username": "Anything",
-        "dependants": 1,
+        "dependants": new_dependants,
     }
     response = api_request_context.put("api/Employees", data=payload)
     assert(response.status == 200)
@@ -56,7 +57,7 @@ def test_edit_employee_data_api(api_request_context, existing_employee):
     
     assert body["firstName"] == new_first_name
     assert body["lastName"] == new_last_name
-    assert body["dependants"] == 1
+    assert body["dependants"] == new_dependants
 
 def test_delete_employee_api(api_request_context, existing_employee):
     response = api_request_context.delete(f"api/Employees/{existing_employee['id']}")
@@ -66,3 +67,25 @@ def test_delete_employee_api(api_request_context, existing_employee):
 
     body = get_response.text()
     assert body == ""
+
+@pytest.mark.parametrize("dependants", [0, 4, 32])
+def test_benefits_cost_api(api_request_context, dependants):
+    dependants = 4
+    payload = {
+        "firstName": f"Test{uuid.uuid4().hex[:8]}",
+        "lastName": f"User{uuid.uuid4().hex[:8]}",
+        "username": "Anything",
+        "dependants": dependants,
+    }
+    response = api_request_context.post("api/Employees", data=payload)
+    assert response.status == 200
+    body = response.json()
+
+    try:
+        expected_benefits_cost = (1000 + (500 * dependants)) / 26
+        expected_net = (body["salary"] / 26) - expected_benefits_cost
+
+        assert body["benefitsCost"] == pytest.approx(expected_benefits_cost, abs=0.01)
+        assert body["net"] == pytest.approx(expected_net, abs=0.01)
+    finally:
+        api_request_context.delete(f"api/Employees/{body['id']}")

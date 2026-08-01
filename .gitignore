@@ -1,2 +1,4 @@
 Automation/.env
 Automation/venv/
+Automation/tests/ui/__pycache__/
+Automation/tests/api/__pycache__/
