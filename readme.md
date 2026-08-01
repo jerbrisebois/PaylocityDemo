@@ -74,5 +74,5 @@ test_delete_employee_api - Send a DEL to /api/Employees/{id} to delete an employ
 
 ## Related documentation
 
-- [UI Bug Report](../PaylocityDemoUIBugReport.md)
-- [API Bug Report](../PaylocityDemoAPIBugReport.md)
+- [UI Bug Report](PaylocityDemoUIBugReport.md)
+- [API Bug Report](PaylocityDemoAPIBugReport.md)
