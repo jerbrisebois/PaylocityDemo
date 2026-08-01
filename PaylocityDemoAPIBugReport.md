@@ -33,7 +33,7 @@ Rare — happens only under deliberately unusual/malicious input
 
 
 
-### 12. "username" is a required, unused, field for POST to /api/Employees
+### 14. "username" is a required, unused, field for POST to /api/Employees
 
 Severity: Low
 
@@ -68,7 +68,7 @@ In Postman, submit a POST request to /api/Employees with the following data
 
 
 
-### 13. "dependents" is not required with a POST to /api/Employees
+### 15. "dependents" is not required with a POST to /api/Employees
 
 Severity: Low
 
@@ -100,7 +100,7 @@ In Postman, submit a POST request to /api/Employees with the following data
 
 
 
-### 14. "expiration" can be a past date with a POST to /api/Employees
+### 16. "expiration" can be a past date with a POST to /api/Employees
 
 Severity: Medium
 
@@ -139,7 +139,7 @@ In Postman, submit a POST request to /api/Employees with the following data
 
 
 
-### 15. "salary" and "id" should be read-only in a POST to /api/Employees
+### 17. "salary" and "id" should be read-only in a POST to /api/Employees
 
 Severity: Low
 
@@ -162,7 +162,7 @@ None - this change needs to take place in the model and updated in the swagger b
 
 
 
-### 16. Sending an invalid uuid returns 200 in a DEL to /api/Employees/{id}
+### 18. Sending an invalid uuid returns 200 in a DEL to /api/Employees/{id}
 
 Severity: Low
 
@@ -190,7 +190,7 @@ Note: It seems there's a check against an "empty" uuid (00000000-0000-0000-0000-
 
 
 
-### 17. Sending an invalid uuid returns 200 in a GET to /api/Employees/{id}
+### 19. Sending an invalid uuid returns 200 in a GET to /api/Employees/{id}
 
 Severity: Low
 
@@ -223,7 +223,7 @@ Screenshot of the 500 error
 
 
 
-### 18. PUT to /api/Employees can create new employee entries with arbitrary salary
+### 20. PUT to /api/Employees can create new employee entries with arbitrary salary
 
 Severity: Critical
 

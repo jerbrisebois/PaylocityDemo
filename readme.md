@@ -1,0 +1,70 @@
+# Paylocity Benefits Dashboard — Test Automation
+
+Automated UI and API test suites for the Benefits Dashboard, built with Python, pytest, and Playwright.
+
+
+## Prerequisites
+
+- Python 3.x
+- Access credentials for the application (see Configuration below)
+
+
+## Setup
+
+1. Clone this repo and navigate to this directory:
+
+`cd Automation`
+
+2. Create and activate a python virtual environment
+
+`python -m venv venv`
+
+3. Install dependencies
+
+`pip install -r requirements.txt`
+`playwright install`
+
+4. .env configuration - Copy/paste the `.env.example` to `.env` and fill in credentials
+
+
+## Running the tests
+
+Run everything with `pytest`
+
+Run only UI tests with `pytest tests/ui`
+
+Add `--headed` to this to show the browser execution (ex: `pytest tests/ui --headed`)
+
+Run only API tests with `pytest tests/api`
+
+Run single test example: `pytest tests/ui/test_dashboard.py::test_add_employee`
+
+
+## List of tests
+
+### UI
+
+test_add_employee - Add an employee and verify it exists
+test_edit_employee_lastname - Edit an employee's last name and verify it's been updated
+test_edit_employee_data - Edit an employee's first and last name and depentents and verify it's been updated
+test_delete_employee - Delete an employee and verify it has been removed
+
+
+### API
+
+test_add_employee_api - Send a POST to /api/Employees to create a new employee and verify it is created
+test_edit_employee_lastname_api - Send a PUT to /api/Employees to edit an existing employee's last name and verify it's been updated
+test_edit_employee_data_api - Send a PUT to /api/Employees to edit an employee's first and last name and depentents and verify it's been updated
+test_delete_employee_api - Send a DEL to /api/Employees/{id} to delete an employee and verify it has been removed
+
+
+## Design Notes
+
+- Test data is self-contained. Each test will create its own prerequisite data, act only upon it and delete it after the test concludes
+- The "page" fixture is overridden, so each test will, by default, log in prior to executing the test. I have included a specific fixture (logged_out_page) that could be used when writing tests on the login screen (though I have not included any as that seemed outside the scope of the project)
+
+
+## Related documentation
+
+- [UI Bug Report](../PaylocityDemoUIBugReport.md)
+- [API Bug Report](../PaylocityDemoAPIBugReport.md)

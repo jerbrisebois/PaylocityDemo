@@ -297,3 +297,26 @@ When entering in a first or last name, symbols and emojis are not restricted. Th
 <img src="Images/11.png">
 
 ---
+
+### 12. Inconsistent spelling of "dependent"
+
+Severity: Low
+
+Likelihood: Always
+
+Environments: Firefox, Chrome, Edge
+
+The spelling of "dependents" is consistent in customer-facing elements but the DOM and API has it spelled "dependants". This could cause confusion when interacting with the elements or API.
+
+---
+
+### 13. Edit imployee dialogue box shows "Add Employee"
+
+Severity: Low
+
+Likelihood: Always
+
+Environments: Firefox, Chrome, Edge
+
+When editing an employee, the header on the box has "Add Employee" as though the user was adding a new entry instead of a more proper "Edit Employee".
+
