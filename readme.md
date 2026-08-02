@@ -73,6 +73,8 @@ test_delete_employee_api - Send a DEL to /api/Employees/{id} to delete an employ
 
 test_benefits_cost_api - Send a POST to /api/Employees with 3 different dependent amounts, verifying the benefit cost calculation for each
 
+test_update_nonexistent_employee - Send a PUT to /api/Employees to edit a non-existent employee and verify the request is not processed
+
 ## Design Notes
 
 - Test data is self-contained. Each test will create its own prerequisite data, act only upon it and delete it after the test concludes

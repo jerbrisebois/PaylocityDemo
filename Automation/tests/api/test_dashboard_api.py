@@ -89,3 +89,24 @@ def test_benefits_cost_api(api_request_context, dependants):
         assert body["net"] == pytest.approx(expected_net, abs=0.01)
     finally:
         api_request_context.delete(f"api/Employees/{body['id']}")
+
+def test_update_nonexistent_employee(api_request_context):
+    payload = {
+        "firstName": f"Test{uuid.uuid4().hex[:8]}",
+        "lastName": f"User{uuid.uuid4().hex[:8]}",
+        "username": "Anything",
+        "id": str(uuid.uuid4()),
+        "salary": -1000
+    }
+    response = api_request_context.put("api/Employees", data=payload)
+
+    try:
+        # The response code we should get here is unclear, likely a 404 or 405
+        # Simply checking that it is not a 200 for now
+        assert response.status != 200
+    finally:
+        # This will not be needed once API bug 20 is fixed (the employee should never be created)
+        # For now, it helps keep the environment clean although it does delete the evidence that
+        # an employee created this way has a bogus salary/net pay.
+        body = response.json()
+        api_request_context.delete(f"api/Employees/{body['id']}")
