@@ -21,9 +21,13 @@ Automated UI and API test suites for the Benefits Dashboard, built with Python, 
 
 2a. Run the activation script appropriate to your environment
 
-`.venv/scripts/Activate.ps1` (PowerShell)
+`.\venv\Scripts\Activate.ps1` (PowerShell)
 
-`.venv/scripts/Activate.bat` (Windows CMD prompt)
+Note: If you receive the error "Activate.ps1 cannot be loaded because running scripts is disabled on this system" the following command must be run first:
+
+`Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+
+`.\venv\Scripts\Activate.bat` (Windows CMD prompt)
 
 `source .venv/bin/activate` (macOS / Linux - Bash / Zsh)
 
