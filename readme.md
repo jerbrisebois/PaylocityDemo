@@ -84,6 +84,8 @@ test_login_bypass - Access the dashboard without logging in and verify I am redi
 
 test_rapid_add_employee - Rapidly click "add" when creating a new employee and verify only 1 entry is created
 
+test_edit_deleted_employee - Delete an employee and edit the same employee in a new tab/window, confirm it cannot be edited
+
 ### API
 
 test_add_employee_api - Send a POST to /api/Employees to create a new employee and verify it is created
@@ -97,6 +99,8 @@ test_delete_employee_api - Send a DEL to /api/Employees/{id} to delete an employ
 test_benefits_cost_api - Send a POST to /api/Employees with 3 different dependent amounts, verifying the benefit cost calculation for each
 
 test_update_nonexistent_employee - Send a PUT to /api/Employees to edit a non-existent employee and verify the request is not processed
+
+test_get_nonexistent_employee - Set a GET to /api/Employees/{id} to get a non-existent employee and verify the request is not processed
 
 ## Design Notes
 
