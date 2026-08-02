@@ -90,6 +90,6 @@ def test_xss_input(page: Page):
         assert len(fired_dialogs) == 0, "XSS payload executed - input was not sanitized"
     finally:
         row = page.locator("#employeesTable tr", has_text=new_employee_id)
-        #row.locator(".fa-times").click()
-        #page.get_by_role("button", name="Delete").click()
-        #expect(row).to_have_count(0)
+        row.locator(".fa-times").click()
+        page.get_by_role("button", name="Delete").click()
+        expect(row).to_have_count(0)
