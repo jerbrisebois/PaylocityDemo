@@ -11,7 +11,7 @@ Automated UI and API test suites for the Benefits Dashboard, built with Python, 
 
 ## Setup
 
-1. Clone this repo and navigate to this directory:
+1. Clone this repo and navigate to the Automation directory
 
 `cd Automation`
 
@@ -57,7 +57,9 @@ test_edit_employee_data - Edit an employee's first and last name and depentents 
 
 test_delete_employee - Delete an employee and verify it has been removed
 
+test_benefits_cost - Add 3 different employees with different dependent amounts and verify the benefit cost calculation for each
 
+test_xss_input - Add an employee with xss input used in the name field and verify it does not execute 
 
 ### API
 

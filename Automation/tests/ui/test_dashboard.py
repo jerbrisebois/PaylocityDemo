@@ -56,3 +56,35 @@ def test_benefits_cost(page: Page, dependants):
         expect(benefits_cost_cell).to_have_text(f"{expected_cost:.2f}")
     finally:
         delete_employee(page, employee)
+
+def test_xss_input(page: Page):
+    fired_dialogs = []
+
+    # Capture and close a dialogue if it pops up during this test
+    def handle_dialog(dialog):
+        fired_dialogs.append(dialog.message)
+        dialog.dismiss()
+    page.on("dialog", handle_dialog)
+
+    rows = page.locator("#employeesTable tr")
+    initial_count = rows.count()
+    all_employee_ids = set(page.locator("#employeesTable td:nth-child(1)").all_inner_texts())
+
+    page.get_by_role("button", name="Add Employee").click()
+    page.locator("#firstName").fill("<img src=x onerror=alert(1)>")
+    page.locator("#lastName").fill(f"XssTest{uuid.uuid4().hex[:8]}")
+    page.locator("#dependants").fill("0")
+    page.locator("#addEmployee").click()
+
+    # Force waiting for the page to have updated before continuing
+    expect(rows).to_have_count(initial_count + 1)
+
+    new_all_employee_ids = set(page.locator("#employeesTable td:nth-child(1)").all_inner_texts())
+    new_employee_id = (new_all_employee_ids - all_employee_ids).pop()
+    
+    try:
+        assert len(fired_dialogs) == 0, "XSS payload executed - input was not sanitized"
+    finally:
+        row = page.locator("#employeesTable tr", has_text=new_employee_id)
+        row.locator(".fa-times").click()
+        page.get_by_role("button", name="Delete").click()
