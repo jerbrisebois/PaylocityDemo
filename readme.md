@@ -80,6 +80,10 @@ test_benefits_cost - Add 3 different employees with different dependent amounts 
 
 test_xss_input - Add an employee with xss input used in the name field and verify it does not execute 
 
+test_login_bypass - Access the dashboard without logging in and verify I am redirected to the login page
+
+test_rapid_add_employee - Rapidly click "add" when creating a new employee and verify only 1 entry is created
+
 ### API
 
 test_add_employee_api - Send a POST to /api/Employees to create a new employee and verify it is created

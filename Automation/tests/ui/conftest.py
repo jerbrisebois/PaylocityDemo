@@ -34,7 +34,6 @@ def logged_out_page(context):
     Unauthenticated page for scenarios where testing pre-login is required
     """
     page = context.new_page()
-    page.goto(BASE_URL)
     return page
 
 @pytest.fixture

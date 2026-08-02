@@ -103,10 +103,17 @@ def test_update_nonexistent_employee(api_request_context):
     try:
         # The response code we should get here is unclear, likely a 404 or 405
         # Simply checking that it is not a 200 for now
-        assert response.status != 200
+        assert response.status != 200, "Server responded with 200 when putting to invalid employee"
     finally:
         # This will not be needed once API bug 20 is fixed (the employee should never be created)
         # For now, it helps keep the environment clean although it does delete the evidence that
         # an employee created this way has a bogus salary/net pay.
         body = response.json()
         api_request_context.delete(f"api/Employees/{body['id']}")
+
+def test_get_nonexistent_employee(api_request_context):
+    response = api_request_context.get(f"api/Employees/{str(uuid.uuid4())}")
+
+    # The response code we should get here is unclear, likely a 404 or 405
+    # Simply checking that it is not a 200 for now
+    assert response.status != 200, "Server responded with 200 when getting an invalid employee"

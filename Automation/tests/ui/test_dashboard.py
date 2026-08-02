@@ -1,7 +1,14 @@
+import os
 import uuid
 import pytest
+import time
 from playwright.sync_api import Page, expect
 from conftest import add_employee, delete_employee
+from dotenv import load_dotenv
+
+# Get data from .env
+load_dotenv()
+BASE_URL = os.getenv("BASE_URL")
 
 def test_add_employee(page: Page):
     employee = add_employee(page)
@@ -93,3 +100,70 @@ def test_xss_input(page: Page):
         row.locator(".fa-times").click()
         page.get_by_role("button", name="Delete").click()
         expect(row).to_have_count(0)
+
+def test_login_bypass(logged_out_page: Page):
+    logged_out_page.goto(f"{BASE_URL}Benefits")
+    expect(logged_out_page).to_have_title("Log In - Paylocity Benefits Dashboard")
+
+def slow_down_request(route):
+    time.sleep(1)
+    route.continue_()
+
+def test_rapid_add_employee(page: Page):
+    first_name = f"Dup{uuid.uuid4().hex[:8]}"
+    last_name = f"Test{uuid.uuid4().hex[:8]}"
+
+    # Reproduces network throttling used manually during bug testing (see bug #5)
+    # Note: This functionality only works for chromium
+    cdp = page.context.new_cdp_session(page)
+    cdp.send("Network.enable")
+    cdp.send("Network.emulateNetworkConditions", {
+        "offline": False,
+        "latency": 1000,
+        "downloadThroughput": 50 * 1024,
+        "uploadThroughput": 50 * 1024,
+    })
+
+    page.get_by_role("button", name="Add Employee").click()
+    page.locator("#firstName").fill(first_name)
+    page.locator("#lastName").fill(last_name)
+    page.locator("#dependants").fill("0")
+
+    add_button = page.locator("#addEmployee")
+    add_button.click()
+    add_button.click()
+
+    dup_rows = page.locator("#employeesTable tr", has_text=first_name)
+    expect(dup_rows).to_have_count(1)
+
+    while dup_rows.count() > 0:
+        dup_rows.first.locator(".fa-times").click()
+        page.get_by_role("button", name="Delete").click()
+
+def test_edit_deleted_employee(page: Page, context, existing_employee):
+    second_page = context.new_page()
+    second_page.goto(BASE_URL)
+
+    # Delete the employee on the second page
+    row = second_page.locator("#employeesTable tr", has_text=existing_employee["id"])
+    row.locator(".fa-times").click()
+    second_page.get_by_role("button", name="Delete").click()
+    expect(row).to_have_count(0)
+    second_page.close()
+
+    # Edit the employee on the first page
+    row = page.locator("#employeesTable tr", has_text=existing_employee["id"])
+    row.locator(".fa-edit").click()
+    new_last_name = f"Edited{uuid.uuid4().hex[:8]}"
+    page.locator("#lastName").fill(new_last_name)
+    page.locator("#updateEmployee").click()
+    expect(page.locator("#employeeModal")).to_be_hidden()
+
+    new_row = page.locator("#employeesTable tr", has_text=new_last_name)
+
+    try:
+        expect(new_row).to_have_count(0)
+    finally:
+        if new_row.count() > 0:
+            new_row.locator(".fa-times").click()
+            page.get_by_role("button", name="Delete").click()
