@@ -44,7 +44,7 @@ Note: If you receive the error "Activate.ps1 cannot be loaded because running sc
 
 `playwright install`
 
-4. .env configuration - Copy/paste the `.env.example` to `.env` and fill in credentials
+4. .env configuration - Copy/paste the `.env.example` to `.env` and fill in credentials. For the API key omit the "Basic "
 
 
 ## Running the tests
