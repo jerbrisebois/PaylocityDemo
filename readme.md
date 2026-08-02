@@ -19,6 +19,21 @@ Automated UI and API test suites for the Benefits Dashboard, built with Python, 
 
 `python -m venv venv`
 
+2a. Run the activation script appropriate to your environment
+
+`.venv/scripts/Activate.ps1` (PowerShell)
+
+`.venv/scripts/Activate.bat` (Windows CMD prompt)
+
+`source .venv/bin/activate` (macOS / Linux - Bash / Zsh)
+
+`source .venv/bin/activate.fish` (macOS / Linux - Fish Shell)
+
+`source .venv/bin/activate.csh` (macOS / Linux - Csh / Tcsh)
+
+`overlay use .venv/bin/activate.nu` (Nushell)
+
+
 3. Install dependencies
 
 `pip install -r requirements.txt`
