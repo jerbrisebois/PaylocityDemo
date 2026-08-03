@@ -215,7 +215,7 @@ Note: Sending an "empty" uuid (00000000-0000-0000-0000-000000000000) returns a 5
 
 Screenshot of the 500 error
 
-<img src="Images/17.png">
+<img src="Images/18.png">
 
 
 
@@ -258,7 +258,7 @@ In Postman, submit a PUT request to /api/Employees with the following data
 
 
 
-<img src="Images/18.png">
+<img src="Images/19.png">
 
 
 
