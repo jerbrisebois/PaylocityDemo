@@ -135,7 +135,7 @@ When entering first or last name you can use HTML and submit it without error, i
 
 2. Click "Add Employee"
 
-3. Enter "<img src=x onerror=alert(1)>" for the first or last name
+3. Enter "&lt;img src=x onerror=alert(1)>" for the first or last name
 
 4. Enter number of dependents and save
 
