@@ -79,12 +79,16 @@ test_delete_employee - Delete an employee and verify it has been removed
 test_benefits_cost - Add 3 different employees with different dependent amounts and verify the benefit cost calculation for each
 
 test_xss_input - Add an employee with xss input used in the name field and verify it does not execute 
+*Currently failing due to bug 4
 
 test_login_bypass - Access the dashboard without logging in and verify I am redirected to the login page
+*Currently failing due to bug 1
 
 test_rapid_add_employee - Rapidly click "add" when creating a new employee and verify only 1 entry is created
+*Currently failing due to bug 5
 
 test_edit_deleted_employee - Delete an employee and edit the same employee in a new tab/window, confirm it cannot be edited
+*Currently failing due to bug 6
 
 ### API
 
@@ -99,8 +103,10 @@ test_delete_employee_api - Send a DEL to /api/Employees/{id} to delete an employ
 test_benefits_cost_api - Send a POST to /api/Employees with 3 different dependent amounts, verifying the benefit cost calculation for each
 
 test_update_nonexistent_employee - Send a PUT to /api/Employees to edit a non-existent employee and verify the request is not processed
+*Currently failing due to bug 20
 
 test_get_nonexistent_employee - Set a GET to /api/Employees/{id} to get a non-existent employee and verify the request is not processed
+*Currently failing due to bug 19
 
 ## Design Notes
 
